@@ -35,7 +35,9 @@ async def verify_signature(request: Request) -> bytes:
         raise HTTPException(status_code=401, detail="Webhook replay detected")
 
     raw = await request.body()
-    secret = settings.send_sms_hook_secret
+    secret = settings.send_sms_hook_secret.strip()
+    if secret.startswith("v1,"):
+        secret = secret[3:]
 
     try:
         wh = Webhook(secret)
