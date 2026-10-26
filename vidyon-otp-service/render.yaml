@@ -1,0 +1,42 @@
+services:
+  - type: web
+    name: vidyon-otp-service
+    region: singapore
+    plan: free            # change to starter for production (always-on, avoids cold starts)
+    runtime: docker
+    healthCheckPath: /health
+    envVars:
+      - key: ENVIRONMENT
+        value: development
+      - key: LOG_LEVEL
+        value: INFO
+      - key: PROVIDER
+        value: mock
+      - key: MOCK_MODE
+        value: success
+      - key: PROVIDER_TIMEOUT_SECONDS
+        value: "4.0"
+      - key: ALLOWED_COUNTRY_PREFIX
+        value: "+91"
+      - key: PER_PHONE_LIMIT_ENABLED
+        value: "true"
+      - key: SEND_SMS_HOOK_SECRET
+        sync: false        # paste from Supabase Auth hook dashboard
+      - key: WHATSAPP_ACCESS_TOKEN
+        sync: false
+      - key: WHATSAPP_PHONE_NUMBER_ID
+        sync: false
+      - key: WHATSAPP_GRAPH_API_VERSION
+        value: v19.0
+      - key: WHATSAPP_TEMPLATE_NAME_EN
+        value: otp_en
+      - key: WHATSAPP_TEMPLATE_NAME_TA
+        value: otp_ta
+      - key: WHATSAPP_TEMPLATE_LANGUAGE_EN
+        value: en
+      - key: WHATSAPP_TEMPLATE_LANGUAGE_TA
+        value: ta
+      - key: OTP_PLATFORM_API_KEY
+        sync: false        # returned by issue_api_key() in SQL seed
+      - key: OTP_PLATFORM_URL
+        value: https://eltecxqyjuqcfeekiesm.supabase.co/functions/v1
