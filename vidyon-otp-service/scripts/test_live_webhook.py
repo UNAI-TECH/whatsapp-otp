@@ -46,7 +46,7 @@ def send_test_otp(phone: str, otp: str = "482910"):
 
     print("1. Dispatching signed webhook to Render service...")
     try:
-        resp = httpx.post(SERVICE_URL, content=payload, headers=headers, timeout=10.0)
+        resp = httpx.post(SERVICE_URL, content=payload, headers=headers, timeout=60.0)
         print(f"Status Code: {resp.status_code}")
         print(f"Response:    {resp.text}")
 
